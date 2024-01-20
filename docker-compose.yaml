@@ -1,7 +1,7 @@
 
 services:
   webservice:
-    image: botimpact/springgraph
+    image: botimpact/springgraphdemo
     ports:
       - "8080:8080"
     environment:
