@@ -1,0 +1,12 @@
+type Query {
+    getTimestamps: [Timestamp]
+}
+
+type Mutation {
+    saveTimestamp(time: String): Timestamp
+}
+
+type Timestamp {
+    id: ID
+    time: String
+}

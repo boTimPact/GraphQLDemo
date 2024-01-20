@@ -1,0 +1,41 @@
+
+services:
+  webservice:
+    image: botimpact/springgraph
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:postgresql://springPostgresServer:5432/TimestampDB
+      - spring.datasource.username=root
+      - spring.datasource.password=password123
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.show-sql=true
+      - spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+      - spring.graphql.graphiql.enabled=true
+    depends_on:
+      database:
+        condition: service_started
+    networks:
+      - dev
+
+  database:
+    image: "postgres:11.22-bullseye"
+    container_name: springPostgresServer
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_USER=root
+      - POSTGRES_DB=TimestampDB
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - dev
+
+volumes:
+  db-data:
+networks:
+  dev:
+    driver: bridge
