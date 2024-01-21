@@ -1,9 +1,9 @@
 type Query {
-    getTimestamps: [Timestamp]
+    timestamps: [Timestamp]
 }
 
 type Mutation {
-    saveTimestamp(time: String): Timestamp
+    timestamp(time: String): Timestamp
 }
 
 type Timestamp {

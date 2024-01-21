@@ -30,7 +30,7 @@ function getClicks() {
 async function postClicksGraphQuery(){
     const mutation = JSON.stringify({
         query: `mutation myMutation($time: String){
-            saveTimestamp(time: $time){
+            timestamp(time: $time){
                 time
             }
         }`,
@@ -53,8 +53,8 @@ async function postClicksGraphQuery(){
 
 async function getClicksGraphQuery(){
     const query = JSON.stringify({
-        query: `query MyQuery {
-            getTimestamps {
+        query: `query {
+            timestamps {
                 time
             }
         }`
@@ -70,6 +70,6 @@ async function getClicksGraphQuery(){
     );
 
     const json = await res.json()
-    const timestamps = json.data.getTimestamps.map(t => t.time).toString().replaceAll(",", ", ")
+    const timestamps = json.data.timestamps.map(t => t.time).toString().replaceAll(",", ", ")
     $("#timestamps").val(timestamps)
 }

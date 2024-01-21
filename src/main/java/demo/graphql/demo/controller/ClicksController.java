@@ -36,13 +36,13 @@ public class ClicksController {
     }
 
     @QueryMapping
-    public Timestamp[] getTimestamps(){
+    public Timestamp[] timestamps(){
         var timestamps = repository.findAll().toArray(new Timestamp[0]);
         return timestamps;
     }
 
     @MutationMapping
-    public Timestamp saveTimestamp(@Argument String time){
+    public Timestamp timestamp(@Argument String time){
         Timestamp timestamp = new Timestamp(time);
         repository.save(timestamp);
         return repository.getByTime(time);
