@@ -18,6 +18,8 @@ public class Timestamp {
     private Integer id;
     private String time;
 
+    public Integer getId() { return id; }
+
     public String getTime() {
         return time;
     }
