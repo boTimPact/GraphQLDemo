@@ -4,7 +4,8 @@
 
 # all defined Queries that can be executed
 type Query {
-    timestamps: [Timestamp] # name: return-type
+    # name: return-type
+    timestamps: [Timestamp]
     timestamp(id: ID): Timestamp
     user: User
     # ...
@@ -16,7 +17,7 @@ type Mutation {
     # ...
 }
 
-# self defined Object type
+# self defined Object types
 type Timestamp {
     id: ID
     time: String
