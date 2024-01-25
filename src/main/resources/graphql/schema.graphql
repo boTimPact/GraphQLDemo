@@ -1,0 +1,30 @@
+
+
+
+
+# all defined Queries that can be executed
+type Query {
+    timestamps: [Timestamp] # name: return-type
+    timestamp(id: ID): Timestamp
+    user: User
+    # ...
+}
+
+# all defined Mutations that can be executed (Creating, changing, deleting data)
+type Mutation {
+    timestamp(time: String!): Timestamp
+    # ...
+}
+
+# self defined Object type
+type Timestamp {
+    id: ID
+    time: String
+}
+
+# example Object type
+type User {
+    id: ID
+    name: String
+    # ...
+}
