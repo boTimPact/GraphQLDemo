@@ -1,7 +1,9 @@
 
 services:
   webservice:
-    image: botimpact/springgraphqldemo
+    build: .
+    image: springgraphqldemo
+    container_name: spring-webservice
     ports:
       - "8080:8080"
     environment:

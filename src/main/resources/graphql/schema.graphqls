@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-    timestamp(time: String): Timestamp
+    timestamp(time: String!): Timestamp
 }
 
 type Timestamp {

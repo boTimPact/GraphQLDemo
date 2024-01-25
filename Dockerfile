@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:17.0.9_9-jre-jammy
 WORKDIR /app
 COPY target/springqraphql.jar /app/springqraphql.jar
 EXPOSE 8080

@@ -9,7 +9,6 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,13 +16,13 @@ import java.util.stream.Collectors;
 public class ClicksController {
 
     private final TimestampRepository repository;
-    List<String> timestamps = new ArrayList<>();
 
     @Autowired
-    public ClicksController(TimestampRepository repository) {
-        this.repository = repository;
-    }
+    public ClicksController(TimestampRepository repository) { this.repository = repository; }
 
+    /**
+     * Rest Actions
+     */
     @GetMapping("/clicks")
     public @ResponseBody
     List<String> getClicks(){
@@ -36,13 +35,24 @@ public class ClicksController {
         repository.save(time);
     }
 
+    /**
+     * GraphQL Resolvers
+     */
     @QueryMapping
     public Timestamp[] timestamps(){
-        System.out.println("Query-resolver");
-        var timestamps = repository.findAll().toArray(new Timestamp[0]);
-        return timestamps;
+        return repository.findAll().toArray(new Timestamp[0]);
     }
 
+    @MutationMapping
+    public Timestamp timestamp(@Argument String time){
+        Timestamp timestamp = new Timestamp(time);
+        repository.save(timestamp);
+        return repository.getByTime(time).get(0);
+    }
+
+    /**
+     * Field Resolver
+     */
     @SchemaMapping(typeName = "Timestamp", field = "time")
     public String getTime(Timestamp timestamp){
         System.out.println("Schema resolver: time, id: " + timestamp.getId());
@@ -54,12 +64,4 @@ public class ClicksController {
 //        System.out.println("Schema resolver id: " + timestamp.getId());
 //        return timestamp.getId();
 //    }
-
-    @MutationMapping
-    public Timestamp timestamp(@Argument String time){
-        System.out.println("Mutation-resolver");
-        Timestamp timestamp = new Timestamp(time);
-        repository.save(timestamp);
-        return repository.getByTime(time);
-    }
 }
